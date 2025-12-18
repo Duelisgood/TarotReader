@@ -437,3 +437,133 @@ p {
     box-shadow: 0 0 40px rgba(255, 215, 0, 0.8);
     background: white;
 }
+
+/* =========================================
+   PERBAIKAN RESPONSIVE (Tambahkan di paling bawah style.css)
+   ========================================= */
+
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+.container {
+    width: 95%;
+    max-width: 800px; 
+    margin: 30px auto;
+    padding: 25px 15px; 
+}
+
+.container h1 {
+    font-size: 2em; 
+    line-height: 1.2;
+    margin-bottom: 10px;
+}
+
+.container > p {
+    font-size: 1em;
+    padding: 0 10px; 
+    margin-bottom: 30px;
+}
+
+.input-wrapper {
+    display: flex;
+    gap: 10px; 
+    width: 100%;
+    align-items: stretch;
+}
+
+#user-question {
+    flex: 1; 
+    width: auto; 
+    min-height: 60px; 
+    font-size: 16px; 
+    padding: 12px;
+}
+
+
+#random-btn {
+    flex-shrink: 0; 
+    width: 50px;    
+    padding: 0;     
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5em;
+    height: auto; 
+}
+
+
+#draw-btn, #reset-btn, #save-btn {
+    width: 100%; 
+    padding: 15px; 
+    font-size: 1.1em;
+    white-space: nowrap; 
+}
+
+/* --- 3. PERBAIKAN LAYAR WELCOME (Overlay) --- */
+
+.welcome-content {
+    width: 90%; 
+    padding: 20px;
+}
+
+.welcome-content h1 {
+    font-size: 2.2em; 
+    line-height: 1.2;
+}
+
+.welcome-content p {
+    font-size: 1.1em;
+    margin-bottom: 30px;
+}
+
+#enter-btn {
+    width: 100%; 
+    padding: 15px;
+    font-size: 1.1em;
+}
+
+
+/* =========================================
+   MEDIA QUERIES (Khusus Layar Tablet/Desktop)
+   ========================================= */
+
+@media (min-width: 768px) {
+    .container {
+        padding: 40px; 
+        margin: 50px auto;
+    }
+    
+    .container h1 {
+        font-size: 3.5em; 
+    }
+
+    .container > p {
+        font-size: 1.3em;
+    }
+
+    #user-question {
+        font-size: 1.1em; 
+    }
+
+
+    #draw-btn, #reset-btn, #save-btn {
+        width: auto; 
+        min-width: 350px; 
+        padding: 15px 40px;
+        font-size: 1.3em;
+    }
+
+    .welcome-content h1 {
+        font-size: 4em;
+    }
+    .welcome-content p {
+        font-size: 1.5em;
+    }
+    #enter-btn {
+        width: auto;
+        padding: 15px 50px;
+        font-size: 1.3em;
+    }
+}
