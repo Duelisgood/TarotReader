@@ -1,29 +1,26 @@
-/* cards.css - Layout Kartu Responsif */
+/* cards.css - Layout Kartu Responsif & Cantik (UPDATED) */
 
 /* 1. CONTAINER KARTU */
 .spread-container {
     display: flex;
-    justify-content: center; /* Selalu tengah */
+    justify-content: center;
     align-items: center;
-    gap: 30px; /* Jarak antar kartu */
+    gap: 30px;
     margin-top: 40px;
-    
-    /* DEFAULT (MOBILE): Boleh turun ke bawah jika tidak muat */
-    flex-wrap: wrap; 
-    
+    flex-wrap: wrap; /* Mobile: Bungkus ke bawah */
     perspective: 1000px;
     width: 100%;
 }
 
-/* 2. UKURAN KARTU (MOBILE) */
+/* 2. UKURAN KARTU (DIPERBESAR) */
 .card {
     background-color: transparent;
-    width: 260px;  /* Lebar standar kartu */
-    height: 440px; /* Tinggi standar kartu */
+    /* UPDATE: Kartu dibuat sedikit lebih lebar dan TINGGI */
+    width: 280px;
+    height: 520px; /* Sebelumnya 440px, sekarang lebih lega */
     perspective: 1000px;
-    
-    /* Agar kartu tidak mengecil aneh */
-    flex-shrink: 0; 
+    flex-shrink: 0;
+    margin-bottom: 20px; /* Jarak aman saat di mobile */
 }
 
 /* 3. ISI KARTU (ANIMASI FLIP) */
@@ -32,7 +29,7 @@
     width: 100%;
     height: 100%;
     text-align: center;
-    transition: transform 1s;
+    transition: transform 0.8s cubic-bezier(0.4, 0.2, 0.2, 1); /* Animasi lebih halus */
     transform-style: preserve-3d;
 }
 
@@ -40,7 +37,7 @@
     transform: rotateY(180deg);
 }
 
-/* 4. MUKA & BELAKANG KARTU */
+/* 4. MUKA & BELAKANG KARTU (BASE) */
 .card-front, .card-back {
     position: absolute;
     width: 100%;
@@ -48,14 +45,17 @@
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
     border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    border: 2px solid #e94560;
+    /* Efek shadow lebih dalam agar border terlihat tegas */
+    box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+    border: 2px solid #e94560; /* Warna border merah muda */
     overflow: hidden;
 }
 
-/* Tampilan Depan (Cover) */
+/* --- Tampilan Depan (Cover) --- */
 .card-front {
     background-color: #1a1a2e;
+    /* Pattern halus di background depan */
+    background-image: radial-gradient(circle at 50% 30%, rgba(233, 69, 96, 0.1), transparent);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -65,69 +65,103 @@
 
 .card-front::after {
     content: "🔮";
-    font-size: 4em;
-    filter: drop-shadow(0 0 15px #ffd700);
+    font-size: 5em;
+    filter: drop-shadow(0 0 20px #ffd700);
     animation: floating 3s ease-in-out infinite;
 }
 
-/* Tampilan Belakang (Hasil) */
+/* --- Tampilan Belakang (Hasil) --- */
 .card-back {
-    background: linear-gradient(to bottom, #16213e, #0f3460);
+    /* Gradient sedikit lebih terang di bagian atas agar gambar jelas */
+    background: linear-gradient(to bottom, #243b55, #141e30);
     transform: rotateY(180deg);
-    padding: 15px;
+    padding: 20px; /* Padding lebih lega */
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: flex-start; /* Isi mulai dari atas */
 }
 
 .card-back img {
-    width: 80%;
+    width: 85%;
+    max-height: 220px; /* Batasi tinggi gambar agar teks kebagian tempat */
+    object-fit: cover; /* Gambar tetap proporsional */
     border-radius: 8px;
-    border: 1px solid #7b2cbf;
-    margin-bottom: 10px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    border: 2px solid #fca311; /* Bingkai emas di gambar */
+    margin-bottom: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.4);
 }
 
 .card-back h3 {
-    font-size: 1.1em;
+    font-family: 'Cinzel', serif;
+    font-size: 1.3em;
     margin: 5px 0;
-    color: #e94560;
+    color: #ffd700; /* Judul kartu warna emas */
+    text-shadow: 0 2px 5px rgba(0,0,0,0.5);
 }
 
+/* UPDATE: MEMPERCANTIK TEKS DESKRIPSI */
 .card-back p {
-    font-size: 0.9em;
+    font-family: 'Lato', sans-serif;
+    font-size: 0.95em; /* Sedikit lebih besar */
+    line-height: 1.6;  /* Jarak antar baris lebih lega (mudah dibaca) */
+    color: rgba(255, 255, 255, 0.9); /* Putih agak lembut, tidak tajam di mata */
+    text-shadow: 0 1px 3px rgba(0,0,0,0.8); /* Efek timbul halus agar kontras dengan background */
+    margin-top: 10px;
+    
+    /* Opsional: Jika teks SANGAT panjang, dia akan scroll di dalam kartu */
+    overflow-y: auto;
+    max-height: 180px; 
+    padding-right: 5px; /* Ruang untuk scrollbar */
+}
+
+/* Scrollbar cantik untuk teks kartu (Chrome/Safari) */
+.card-back p::-webkit-scrollbar { width: 4px; }
+.card-back p::-webkit-scrollbar-thumb { background: #e94560; border-radius: 10px; }
+
+.card-back .keywords {
+    font-size: 0.85em;
+    color: #e94560; /* Keywords warna merah muda */
+    font-style: italic;
+    margin-bottom: 10px;
+    opacity: 0.9;
 }
 
 .card-position {
-    background: rgba(0,0,0,0.6);
-    padding: 5px 15px;
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0,0,0,0.7);
+    padding: 4px 12px;
     border-radius: 20px;
     font-weight: bold;
     text-transform: uppercase;
     color: #fca311;
-    font-size: 0.8em;
-    margin-bottom: 10px;
+    font-size: 0.75em;
     border: 1px solid #fca311;
+    z-index: 2;
 }
 
 @keyframes floating {
     0% { transform: translateY(0px); }
-    50% { transform: translateY(-10px); }
+    50% { transform: translateY(-12px); }
     100% { transform: translateY(0px); }
 }
 
 /* =========================================
    MEDIA QUERY: KHUSUS DESKTOP / LAPTOP
-   (Agar kartu berjejer ke samping)
    ========================================= */
 @media (min-width: 900px) {
     .spread-container {
-        /* Di layar lebar, pastikan kontainer cukup lebar untuk 3 kartu */
         max-width: 1200px; 
         margin-left: auto;
         margin-right: auto;
-        
-        /* Opsional: Paksa sejajar sebaris */
-        flex-direction: row; 
+        flex-direction: row; /* Jejer ke samping */
+        gap: 40px;
+    }
+    
+    .card {
+         margin-bottom: 0; /* Reset margin bawah di desktop */
     }
 }
