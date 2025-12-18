@@ -31,15 +31,6 @@ let cardDetails = cards.map((card, index) => {
     
     Berikan tafsir lengkap yang menyambungkan ketiga kartu tersebut menjadi sebuah cerita naratif yang menjawab pertanyaan user.`;
 
-    const requestBody = {
-        model: MODEL_ID, 
-        messages: [
-            { role: "system", content: systemPrompt },
-            { role: "user", content: userPrompt }
-        ],
-        temperature: 0.7 
-    };
-
     const response = await fetch('/api/tarot-read', {
         method: 'POST',
         headers: {

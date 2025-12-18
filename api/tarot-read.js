@@ -16,7 +16,7 @@ export default async function handler(request, response) {
                 "Authorization": `Bearer ${apiKey}`
             },
             body: JSON.stringify({
-                model: "openai/gpt-oss-120b2", 
+                model: "openai/gpt-oss-120b", 
                 messages: messages,
                 temperature: 0.7
             })
