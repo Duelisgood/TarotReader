@@ -2,18 +2,17 @@
    1. GLOBAL STYLES & FONTS
    ========================================= */
 body {
-    background: radial-gradient(circle at center, #2b1055, #000000); /* Background deep mystical */
+    background: radial-gradient(circle at center, #2b1055, #000000); 
     color: #fff;
-    font-family: 'Lato', sans-serif; /* Font body mudah dibaca */
-    text-align: center;
+    font-family: 'Lato', sans-serif; 
     padding: 20px;
     min-height: 100vh;
     margin: 0;
 }
 
 h1, h2, h3 {
-    font-family: 'Cinzel', serif; /* Font judul magis */
-    color: #ffd700; /* Emas */
+    font-family: 'Cinzel', serif; 
+    color: #ffd700; 
     text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
     margin-bottom: 10px;
 }
@@ -40,12 +39,12 @@ p {
     padding: 15px;
     border-radius: 10px;
     border: 1px solid #7b2cbf;
-    background: rgba(255, 255, 255, 0.1); /* Transparan */
+    background: rgba(255, 255, 255, 0.1); 
     color: white;
     font-size: 1.1em;
     backdrop-filter: blur(5px);
     font-family: 'Lato', sans-serif;
-    resize: none; /* Mencegah user mengubah ukuran box */
+    resize: none; 
     outline: none;
     transition: box-shadow 0.3s;
 }
@@ -56,25 +55,35 @@ p {
 }
 
 #draw-btn {
+display: block;
+    width: 90%; 
+    max-width: 400px; 
+    
+    margin: 25px auto 0 auto; 
+    padding: 15px 20px;
+    
     background: linear-gradient(45deg, #7b2cbf, #e94560);
     border: none;
-    padding: 15px 40px;
+    border-radius: 30px;
+    
+    color: white;
     font-family: 'Cinzel', serif;
     font-weight: bold;
-    color: white;
-    border-radius: 30px;
+    font-size: 1.1em;
     cursor: pointer;
-    font-size: 1.2em;
-    transition: transform 0.2s, box-shadow 0.2s;
-    margin-top: 20px;
+    box-shadow: 0 4px 15px rgba(233, 69, 96, 0.4);
+    transition: transform 0.2s;
 }
 
-/* --- STATUS TOMBOL DISABLE (SAAT LOADING) --- */
+#draw-btn:active {
+    transform: scale(0.95); 
+}
+
 #draw-btn:disabled {
-    background: #555; /* Warna abu-abu mati */
+    background: #555; 
     color: #999;
-    cursor: not-allowed; /* Kursor tanda larang */
-    transform: none !important; /* Matikan efek hover */
+    cursor: not-allowed; 
+    transform: none !important; 
     box-shadow: none !important;
     filter: grayscale(100%);
 }
@@ -86,37 +95,57 @@ p {
 
 /* --- Wrapper agar tombol ada di dalam area input --- */
 .input-wrapper {
-    position: relative;
-    width: 80%;
+    position: relative; 
+    width: 100%;
     max-width: 600px;
     margin: 0 auto;
 }
 
-/* Pastikan textarea memenuhi wrapper */
+
 #user-question {
     width: 100%;
-    box-sizing: border-box; /* Agar padding tidak merusak lebar */
-    padding-right: 50px; /* Beri ruang di kanan agar teks tidak tertutup tombol */
+    padding: 15px;
+
+    padding-right: 60px; 
+    
+    border-radius: 10px;
+    border: 1px solid #7b2cbf;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    font-size: 16px; 
+    font-family: 'Lato', sans-serif;
+    resize: none;
+    outline: none;
+    box-sizing: border-box; 
+    min-height: 80px; 
 }
 
-/* --- Styling Tombol Random (Dadu) --- */
 #random-btn {
     position: absolute;
-    top: 10px;
-    right: 10px;
+    top: 15px;  
+    right: 10px; 
+    
     background: transparent;
     border: none;
-    font-size: 1.5em;
+    font-size: 1.8em;
     cursor: pointer;
-    transition: transform 0.5s ease, filter 0.3s;
-    opacity: 0.7;
     z-index: 10;
+    color: #ffd700;
+    opacity: 0.8;
+    
+    margin: 0;
+    padding: 0;
+    height: 40px;
+    width: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #random-btn:hover {
-    transform: rotate(360deg) scale(1.2); /* Animasi berputar saat hover */
+    transform: rotate(360deg) scale(1.2); 
     opacity: 1;
-    filter: drop-shadow(0 0 5px #ffd700); /* Efek glow */
+    filter: drop-shadow(0 0 5px #ffd700); 
 }
 
 #random-btn:active {
@@ -156,7 +185,6 @@ p {
     max-width: 800px;
 }
 
-/* Styling Elemen Markdown */
 .ai-reading-box h3 {
     border-bottom: 1px solid rgba(255, 215, 0, 0.3);
     padding-bottom: 10px;
@@ -167,11 +195,11 @@ p {
 }
 
 .ai-reading-box strong {
-    color: #e94560; /* Highlight warna merah muda */
+    color: #e94560; 
 }
 
 .ai-reading-box em {
-    color: #fca311; /* Highlight warna oranye untuk italics */
+    color: #fca311; 
 }
 
 .ai-reading-box ul {
