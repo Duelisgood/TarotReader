@@ -1,597 +1,221 @@
 /* =========================================
-   1. GLOBAL STYLES & FONTS
+   1. GLOBAL RESET & BASE STYLES
    ========================================= */
+*, *::before, *::after {
+    box-sizing: border-box; /* WAJIB: Agar padding tidak bikin elemen melebar */
+}
+
 body {
-    background: radial-gradient(circle at center, #2b1055, #000000); 
+    background: radial-gradient(circle at center, #2b1055, #000000);
     color: #fff;
-    font-family: 'Lato', sans-serif; 
-    padding: 20px;
-    min-height: 100vh;
+    font-family: 'Lato', sans-serif;
+    text-align: center;
     margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    overflow-x: hidden; /* Mencegah scroll samping yang tidak perlu */
 }
 
 h1, h2, h3 {
-    font-family: 'Cinzel', serif; 
-    color: #ffd700; 
+    font-family: 'Cinzel', serif;
+    color: #ffd700;
     text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
-    margin-bottom: 10px;
-}
-
-p {
-    line-height: 1.6;
+    margin: 10px 0;
 }
 
 /* =========================================
-   2. INPUT AREA & BUTTONS
+   2. LAYOUT CONTAINER UTAMA
    ========================================= */
 .container {
-    max-width: 1200px;
-    margin: 0 auto;
+    width: 90%;          /* Mobile: Lebar 90% layar */
+    max-width: 1200px;   /* Desktop: Maksimal 1200px */
+    margin: 40px auto;   /* Posisi Tengah (Auto) */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Pastikan semua anak elemen di tengah */
 }
 
 .input-section {
-    margin: 30px auto;
+    width: 100%;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+/* =========================================
+   3. INPUT FIELD & TOMBOL DADU (FIXED)
+   ========================================= */
+.input-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 600px; /* Batas lebar input di desktop */
 }
 
 #user-question {
-    width: 80%;
-    max-width: 600px;
+    width: 100%;
+    min-height: 80px;
     padding: 15px;
-    border-radius: 10px;
+    padding-right: 60px; /* Jarak aman agar teks tidak nabrak dadu */
+    
+    background: rgba(255, 255, 255, 0.1);
     border: 1px solid #7b2cbf;
-    background: rgba(255, 255, 255, 0.1); 
-    color: white;
-    font-size: 1.1em;
-    backdrop-filter: blur(5px);
+    border-radius: 12px;
+    color: #fff;
+    font-size: 16px; /* Mencegah zoom di iPhone */
     font-family: 'Lato', sans-serif;
-    resize: none; 
-    outline: none;
-    transition: box-shadow 0.3s;
+    resize: none;
+    backdrop-filter: blur(5px);
 }
 
 #user-question:focus {
-    box-shadow: 0 0 15px rgba(123, 44, 191, 0.5);
-    border-color: #9d4edd;
-}
-
-#draw-btn {
-display: block;
-    width: 90%; 
-    max-width: 400px; 
-    
-    margin: 25px auto 0 auto; 
-    padding: 15px 20px;
-    
-    background: linear-gradient(45deg, #7b2cbf, #e94560);
-    border: none;
-    border-radius: 30px;
-    
-    color: white;
-    font-family: 'Cinzel', serif;
-    font-weight: bold;
-    font-size: 1.1em;
-    cursor: pointer;
-    box-shadow: 0 4px 15px rgba(233, 69, 96, 0.4);
-    transition: transform 0.2s;
-}
-
-#draw-btn:active {
-    transform: scale(0.95); 
-}
-
-#draw-btn:disabled {
-    background: #555; 
-    color: #999;
-    cursor: not-allowed; 
-    transform: none !important; 
-    box-shadow: none !important;
-    filter: grayscale(100%);
-}
-
-#draw-btn:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 20px rgba(233, 69, 96, 0.6);
-}
-
-/* --- Wrapper agar tombol ada di dalam area input --- */
-.input-wrapper {
-    position: relative; 
-    width: 100%;
-    max-width: 600px;
-    margin: 0 auto;
-}
-
-
-#user-question {
-    width: 100%;
-    padding: 15px;
-
-    padding-right: 60px; 
-    
-    border-radius: 10px;
-    border: 1px solid #7b2cbf;
-    background: rgba(255, 255, 255, 0.1);
-    color: white;
-    font-size: 16px; 
-    font-family: 'Lato', sans-serif;
-    resize: none;
     outline: none;
-    box-sizing: border-box; 
-    min-height: 80px; 
+    border-color: #ffd700;
+    box-shadow: 0 0 15px rgba(123, 44, 191, 0.5);
 }
 
 #random-btn {
     position: absolute;
-    top: 15px;  
-    right: 10px; 
-    
+    top: 10px;
+    right: 10px;
     background: transparent;
     border: none;
-    font-size: 1.8em;
-    cursor: pointer;
-    z-index: 10;
+    font-size: 1.5em;
     color: #ffd700;
-    opacity: 0.8;
-    
-    margin: 0;
-    padding: 0;
-    height: 40px;
-    width: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    cursor: pointer;
+    z-index: 5;
+    transition: transform 0.3s;
 }
 
 #random-btn:hover {
-    transform: rotate(360deg) scale(1.2); 
-    opacity: 1;
-    filter: drop-shadow(0 0 5px #ffd700); 
-}
-
-#random-btn:active {
-    transform: scale(0.9);
+    transform: rotate(180deg) scale(1.1);
 }
 
 /* =========================================
-   3. AI READING BOX (MARKDOWN STYLING)
+   4. TOMBOL UTAMA (Draw, Reset, Save)
    ========================================= */
-.ai-reading-box h1, 
-.ai-reading-box h2, 
-.ai-reading-box h3 {
-    white-space: normal; 
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-    line-height: 1.4; 
-    max-width: 100%;
-}
-   
-.ai-reading-box {
-    margin: 50px auto;
-    padding: 40px;
-    max-width: 800px;
-    
-    background: rgba(13, 13, 25, 0.7);
-    border: 1px solid rgba(255, 215, 0, 0.2); 
-    border-radius: 15px;
-    backdrop-filter: blur(15px);
-    box-shadow: 0 0 40px rgba(0, 0, 0, 0.6);
-    
-    text-align: left;
-    color: #eee;
-
-    box-sizing: border-box; 
-    overflow: hidden; 
-    width: 90%; 
-    max-width: 800px;
-}
-
-.ai-reading-box h3 {
-    border-bottom: 1px solid rgba(255, 215, 0, 0.3);
-    padding-bottom: 10px;
-    margin-top: 30px;
-    margin-bottom: 15px;
-    font-size: 1.4em;
-    color: #ffd700;
-}
-
-.ai-reading-box strong {
-    color: #e94560; 
-}
-
-.ai-reading-box em {
-    color: #fca311; 
-}
-
-.ai-reading-box ul {
-    padding-left: 20px;
-}
-
-.ai-reading-box li {
-    margin-bottom: 10px;
-    list-style-type: none;
-}
-
-.ai-reading-box li::before {
-    content: "✨ "; 
-    margin-right: 5px;
-}
-
-.ai-reading-box blockquote {
-    border-left: 4px solid #ffd700;
-    margin: 20px 0;
-    padding: 10px 20px;
-    background: rgba(255, 215, 0, 0.05);
-    font-style: italic;
-    color: #fff;
-    border-radius: 0 10px 10px 0;
-}
-
-/* =========================================
-   5. LOADING ANIMATION
-   ========================================= */
-#ai-loading {
+button {
     font-family: 'Cinzel', serif;
-    font-size: 1.3em;
-    color: #ffd700;
-    margin-top: 30px;
-    letter-spacing: 2px;
-    animation: glow 1.5s infinite alternate;
-}
-
-@keyframes glow {
-    from { text-shadow: 0 0 5px #ffd700, 0 0 10px #e94560; }
-    to { text-shadow: 0 0 20px #ffd700, 0 0 30px #e94560; }
-}
-
-@keyframes floating {
-    0% { transform: translateY(0px); }
-    50% { transform: translateY(-10px); }
-    100% { transform: translateY(0px); }
-}
-
-/* =========================================
-   6. CUSTOM MODAL POPUP
-   ========================================= */
-.modal-overlay {
-    display: none; 
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.85); 
-    z-index: 9999; 
-    backdrop-filter: blur(5px);
-    justify-content: center;
-    align-items: center;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.modal-overlay.active {
-    display: flex;
-    opacity: 1;
-}
-
-.modal-content {
-    background: rgba(20, 20, 40, 0.9);
-    border: 2px solid #e94560; 
-    border-radius: 15px;
-    padding: 30px;
-    width: 90%;
-    max-width: 400px;
-    text-align: center;
-    box-shadow: 0 0 30px rgba(233, 69, 96, 0.4);
-    transform: scale(0.8);
-    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
-}
-
-.modal-overlay.active .modal-content {
-    transform: scale(1);
-}
-
-.modal-content h3 {
-    margin-top: 0;
-    color: #ffd700;
-    font-size: 1.5em;
-}
-
-.modal-content p {
-    color: #ddd;
-    font-size: 1.1em;
-    margin: 20px 0;
-}
-
-.modal-content button {
-    background: linear-gradient(45deg, #e94560, #7b2cbf);
-    color: white;
-    border: none;
-    padding: 10px 25px;
-    border-radius: 25px;
-    font-family: 'Cinzel', serif;
-    font-weight: bold;
     cursor: pointer;
+}
+
+#draw-btn {
+    width: 100%;       /* Mobile: Full width */
+    max-width: 400px;  /* Desktop: Dibatasi */
+    padding: 15px 30px;
+    background: linear-gradient(45deg, #7b2cbf, #e94560);
+    border: none;
+    border-radius: 30px;
+    color: white;
+    font-weight: bold;
+    font-size: 1.1em;
+    margin-top: 20px;
+    box-shadow: 0 4px 15px rgba(233, 69, 96, 0.4);
     transition: transform 0.2s;
 }
 
-.modal-content button:hover {
-    transform: scale(1.1);
-    box-shadow: 0 0 15px rgba(233, 69, 96, 0.6);
+#draw-btn:hover {
+    transform: scale(1.05);
+}
+
+#draw-btn:disabled {
+    background: #555;
+    cursor: not-allowed;
+    filter: grayscale(100%);
+}
+
+#reset-container {
+    display: none;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 30px;
+    width: 100%;
+}
+
+#reset-btn, #save-btn {
+    padding: 12px 30px;
+    border-radius: 25px;
+    border: none;
+    color: white;
+    font-weight: bold;
+}
+
+#reset-btn {
+    background: linear-gradient(45deg, #4cc9f0, #4361ee);
+    box-shadow: 0 0 15px rgba(67, 97, 238, 0.5);
+}
+
+#save-btn {
+    background: linear-gradient(45deg, #ffd700, #fca311);
+    color: #000;
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
 }
 
 /* =========================================
-   7.  SOUND CONTROL BUTTON 
+   5. AI READING BOX
    ========================================= */
+.ai-reading-box {
+    width: 100%;
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 25px;
+    background: rgba(13, 13, 25, 0.8);
+    border: 1px solid rgba(255, 215, 0, 0.3);
+    border-radius: 15px;
+    text-align: left;
+    line-height: 1.6;
+}
 
+.ai-reading-box h1, .ai-reading-box h2, .ai-reading-box h3 {
+    white-space: normal;
+    word-wrap: break-word;
+}
+
+/* =========================================
+   6. LAIN-LAIN (Modal, Audio, Welcome)
+   ========================================= */
+/* (Bagian ini biasanya tidak merusak layout, copy dari yang lama atau biarkan standar) */
+#ai-loading {
+    margin-top: 20px;
+    color: #ffd700;
+    font-size: 1.2em;
+    animation: blink 1.5s infinite;
+}
+
+@keyframes blink { 50% { opacity: 0.5; } }
+
+/* SOUND TOGGLE FIX */
 #sound-toggle {
     position: fixed;
     bottom: 20px;
     left: 20px;
-    background: rgba(20, 20, 40, 0.8);
-    border: 1px solid #e94560;
-    color: #ffd700;
-    font-size: 1.5em;
+    z-index: 999;
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    cursor: pointer;
-    z-index: 1000;
-    transition: all 0.3s ease;
-    display: flex;      
-    justify-content: center;
-    align-items: center;
-    backdrop-filter: blur(5px);
-}
-
-#sound-toggle:hover {
-    transform: scale(1.1);
-    box-shadow: 0 0 15px rgba(233, 69, 96, 0.6);
-    background: #e94560;
-    color: white;
-}
-
-/* =========================================
-   8.  WELCOME SCREEN OVERLAY
-   ========================================= */
-
-#welcome-screen {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(circle at center, #1a0b2e, #000000);
-    z-index: 10000; 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: opacity 1s ease-out; 
-}
-
-.welcome-content {
-    text-align: center;
-    color: white;
-    animation: floating 3s ease-in-out infinite;
-}
-
-.welcome-content h1 {
-    font-size: 3em;
-    margin-bottom: 10px;
-    text-shadow: 0 0 20px #e94560;
-}
-
-.welcome-content p {
-    font-size: 1.2em;
-    color: #ccc;
-    margin-bottom: 30px;
-    font-family: 'Cinzel', serif;
-}
-
-#enter-btn {
-    background: transparent;
-    border: 2px solid #ffd700;
-    color: #ffd700;
-    padding: 15px 40px;
-    font-size: 1.2em;
-    font-family: 'Cinzel', serif;
-    cursor: pointer;
-    transition: all 0.3s;
-    letter-spacing: 2px;
-}
-
-#enter-btn:hover {
-    background: #ffd700;
-    color: #000;
-    box-shadow: 0 0 30px #ffd700;
-}
-
-
-.fade-out {
-    opacity: 0;
-    pointer-events: none; 
-}
-
-/* =========================================
-   9.  Styling Tombol Reset
-   ========================================= */
-#reset-btn {
-    background: linear-gradient(45deg, #4cc9f0, #4361ee);
-    border: 2px solid #4cc9f0;
-    padding: 15px 40px;
-    font-family: 'Cinzel', serif;
-    font-weight: bold;
-    color: white;
-    border-radius: 30px;
-    cursor: pointer;
-    font-size: 1.2em;
-    box-shadow: 0 0 20px rgba(67, 97, 238, 0.5);
-    transition: transform 0.3s;
-}
-
-#reset-btn:hover {
-    transform: scale(1.1) rotate(-5deg);
-    box-shadow: 0 0 30px rgba(76, 201, 240, 0.8);
-    background: white;
-    color: #4361ee;
-}
-
-
-#reset-container {
-    display: none; 
-    justify-content: center;
-    flex-wrap: wrap; 
-    gap: 20px; 
-}
-
-/* =========================================
-   9.  Styling Tombol Save
-   ========================================= */
-#save-btn {
-    background: linear-gradient(45deg, #ffd700, #fca311);
-    border: 2px solid #ffd700;
-    padding: 15px 40px;
-    font-family: 'Cinzel', serif;
-    font-weight: bold;
-    color: #1a0b2e; 
-    border-radius: 30px;
-    cursor: pointer;
-    font-size: 1.2em;
-    box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
-    transition: transform 0.3s;
-}
-
-#save-btn:hover {
-    transform: scale(1.1);
-    box-shadow: 0 0 40px rgba(255, 215, 0, 0.8);
-    background: white;
-}
-
-/* =========================================
-   PERBAIKAN RESPONSIVE (Tambahkan di paling bawah style.css)
-   ========================================= */
-
-
-*, *::before, *::after {
-    box-sizing: border-box;
-}
-
-.container {
-    width: 95%;
-    max-width: 800px; 
-    margin: 30px auto;
-    padding: 25px 15px; 
-}
-
-.container h1 {
-    font-size: 2em; 
-    line-height: 1.2;
-    margin-bottom: 10px;
-}
-
-.container > p {
-    font-size: 1em;
-    padding: 0 10px; 
-    margin-bottom: 30px;
-}
-
-.input-wrapper {
-    display: flex;
-    gap: 10px; 
-    width: 100%;
-    align-items: stretch;
-}
-
-#user-question {
-    flex: 1; 
-    width: auto; 
-    min-height: 60px; 
-    font-size: 16px; 
-    padding: 12px;
-}
-
-
-#random-btn {
-    flex-shrink: 0; 
-    width: 50px;    
-    padding: 0;     
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    background: rgba(0,0,0,0.7);
+    border: 1px solid #e94560;
+    color: #fff;
     font-size: 1.5em;
-    height: auto; 
 }
 
-
-#draw-btn, #reset-btn, #save-btn {
-    width: 100%; 
-    padding: 15px; 
-    font-size: 1.1em;
-    white-space: nowrap; 
+/* WELCOME SCREEN */
+#welcome-screen {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: #1a0b2e; z-index: 10000;
+    display: flex; justify-content: center; align-items: center;
 }
+.welcome-content { padding: 20px; }
+.fade-out { opacity: 0; pointer-events: none; transition: opacity 0.8s; }
 
-/* --- 3. PERBAIKAN LAYAR WELCOME (Overlay) --- */
-
-.welcome-content {
-    width: 90%; 
-    padding: 20px;
+/* CUSTOM ALERT */
+.modal-overlay {
+    display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.8); z-index: 10000;
+    justify-content: center; align-items: center;
 }
-
-.welcome-content h1 {
-    font-size: 2.2em; 
-    line-height: 1.2;
-}
-
-.welcome-content p {
-    font-size: 1.1em;
-    margin-bottom: 30px;
-}
-
-#enter-btn {
-    width: 100%; 
-    padding: 15px;
-    font-size: 1.1em;
-}
-
-
-/* =========================================
-   MEDIA QUERIES (Khusus Layar Tablet/Desktop)
-   ========================================= */
-
-@media (min-width: 768px) {
-    .container {
-        padding: 40px; 
-        margin: 50px auto;
-    }
-    
-    .container h1 {
-        font-size: 3.5em; 
-    }
-
-    .container > p {
-        font-size: 1.3em;
-    }
-
-    #user-question {
-        font-size: 1.1em; 
-    }
-
-
-    #draw-btn, #reset-btn, #save-btn {
-        width: auto; 
-        min-width: 350px; 
-        padding: 15px 40px;
-        font-size: 1.3em;
-    }
-
-    .welcome-content h1 {
-        font-size: 4em;
-    }
-    .welcome-content p {
-        font-size: 1.5em;
-    }
-    #enter-btn {
-        width: auto;
-        padding: 15px 50px;
-        font-size: 1.3em;
-    }
+.modal-overlay.active { display: flex; }
+.modal-content {
+    background: #1a1a2e; padding: 30px; border-radius: 15px; border: 2px solid #e94560;
+    width: 90%; max-width: 400px; text-align: center;
 }
