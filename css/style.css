@@ -2,7 +2,7 @@
    1. GLOBAL RESET & BASE STYLES
    ========================================= */
 *, *::before, *::after {
-    box-sizing: border-box; /* WAJIB: Agar padding tidak bikin elemen melebar */
+    box-sizing: border-box; 
 }
 
 body {
@@ -13,7 +13,7 @@ body {
     margin: 0;
     padding: 0;
     min-height: 100vh;
-    overflow-x: hidden; /* Mencegah scroll samping yang tidak perlu */
+    overflow-x: hidden;
 }
 
 h1, h2, h3 {
@@ -24,15 +24,50 @@ h1, h2, h3 {
 }
 
 /* =========================================
-   2. LAYOUT CONTAINER UTAMA
+   2. WELCOME SCREEN (DIPERBAIKI)
+   ========================================= */
+#welcome-screen {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: radial-gradient(circle at center, #1a0b2e, #000000); 
+    z-index: 10000;
+    display: flex; justify-content: center; align-items: center;
+}
+.welcome-content { padding: 20px; animation: floating 3s ease-in-out infinite; }
+.welcome-content h1 { font-size: 2.5em; text-shadow: 0 0 20px #e94560; }
+.welcome-content p { font-family: 'Cinzel', serif; color: #ccc; margin-bottom: 30px;}
+.fade-out { opacity: 0; pointer-events: none; transition: opacity 0.8s; }
+
+/* TOMBOL MASUK KHUSUS (Garis Emas) */
+#enter-btn {
+    background: transparent;
+    border: 2px solid #ffd700;
+    color: #ffd700;
+    padding: 15px 40px;
+    font-family: 'Cinzel', serif;
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: all 0.3s;
+    letter-spacing: 2px;
+    border-radius: 5px; /* Sedikit rounded */
+}
+
+#enter-btn:hover {
+    background: #ffd700;
+    color: #000;
+    box-shadow: 0 0 30px #ffd700;
+    transform: scale(1.05);
+}
+
+/* =========================================
+   3. LAYOUT CONTAINER UTAMA
    ========================================= */
 .container {
-    width: 90%;          /* Mobile: Lebar 90% layar */
-    max-width: 1200px;   /* Desktop: Maksimal 1200px */
-    margin: 40px auto;   /* Posisi Tengah (Auto) */
+    width: 90%;          
+    max-width: 1200px;   
+    margin: 40px auto;   
     display: flex;
     flex-direction: column;
-    align-items: center; /* Pastikan semua anak elemen di tengah */
+    align-items: center; 
 }
 
 .input-section {
@@ -43,25 +78,25 @@ h1, h2, h3 {
 }
 
 /* =========================================
-   3. INPUT FIELD & TOMBOL DADU (FIXED)
+   4. INPUT FIELD & TOMBOL DADU
    ========================================= */
 .input-wrapper {
     position: relative;
     width: 100%;
-    max-width: 600px; /* Batas lebar input di desktop */
+    max-width: 600px; 
 }
 
 #user-question {
     width: 100%;
     min-height: 80px;
     padding: 15px;
-    padding-right: 60px; /* Jarak aman agar teks tidak nabrak dadu */
+    padding-right: 60px; 
     
     background: rgba(255, 255, 255, 0.1);
     border: 1px solid #7b2cbf;
     border-radius: 12px;
     color: #fff;
-    font-size: 16px; /* Mencegah zoom di iPhone */
+    font-size: 16px; 
     font-family: 'Lato', sans-serif;
     resize: none;
     backdrop-filter: blur(5px);
@@ -91,16 +126,13 @@ h1, h2, h3 {
 }
 
 /* =========================================
-   4. TOMBOL UTAMA (Draw, Reset, Save)
+   5. TOMBOL UTAMA (Draw, Reset, Save)
    ========================================= */
-button {
-    font-family: 'Cinzel', serif;
-    cursor: pointer;
-}
+button { font-family: 'Cinzel', serif; cursor: pointer; }
 
 #draw-btn {
-    width: 100%;       /* Mobile: Full width */
-    max-width: 400px;  /* Desktop: Dibatasi */
+    width: 100%;       
+    max-width: 400px;  
     padding: 15px 30px;
     background: linear-gradient(45deg, #7b2cbf, #e94560);
     border: none;
@@ -113,15 +145,8 @@ button {
     transition: transform 0.2s;
 }
 
-#draw-btn:hover {
-    transform: scale(1.05);
-}
-
-#draw-btn:disabled {
-    background: #555;
-    cursor: not-allowed;
-    filter: grayscale(100%);
-}
+#draw-btn:hover { transform: scale(1.05); }
+#draw-btn:disabled { background: #555; cursor: not-allowed; filter: grayscale(100%); }
 
 #reset-container {
     display: none;
@@ -152,61 +177,81 @@ button {
 }
 
 /* =========================================
-   5. AI READING BOX
+   6. AI READING BOX (GAYA CANTIK KEMBALI)
    ========================================= */
 .ai-reading-box {
     width: 100%;
     max-width: 800px;
     margin: 40px auto;
     padding: 25px;
-    background: rgba(13, 13, 25, 0.8);
+    background: rgba(13, 13, 25, 0.8); /* Gelap transparan */
     border: 1px solid rgba(255, 215, 0, 0.3);
     border-radius: 15px;
     text-align: left;
     line-height: 1.6;
+    color: #eee;
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
 }
 
 .ai-reading-box h1, .ai-reading-box h2, .ai-reading-box h3 {
     white-space: normal;
     word-wrap: break-word;
+    color: #ffd700;
+    border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+    padding-bottom: 5px;
+    margin-top: 20px;
+}
+
+/* HIGHLIGHT CANTIK (BOLD & ITALIC) */
+.ai-reading-box strong {
+    color: #e94560; /* Merah Muda */
+    font-weight: bold;
+    text-shadow: 0 0 5px rgba(233, 69, 96, 0.4);
+}
+
+.ai-reading-box em {
+    color: #fca311; /* Oranye Emas */
+    font-style: italic;
+}
+
+/* LIST ITEM (DENGAN BINTANG) */
+.ai-reading-box ul { padding-left: 20px; }
+.ai-reading-box li { 
+    list-style-type: none; 
+    margin-bottom: 10px; 
+}
+.ai-reading-box li::before { 
+    content: "✨ "; 
+    margin-right: 5px; 
+}
+
+.ai-reading-box blockquote {
+    border-left: 4px solid #ffd700;
+    margin: 15px 0;
+    padding: 10px 20px;
+    background: rgba(255, 215, 0, 0.05);
+    font-style: italic;
 }
 
 /* =========================================
-   6. LAIN-LAIN (Modal, Audio, Welcome)
+   7. LAIN-LAIN (Animasi & Modal)
    ========================================= */
-/* (Bagian ini biasanya tidak merusak layout, copy dari yang lama atau biarkan standar) */
 #ai-loading {
     margin-top: 20px;
     color: #ffd700;
     font-size: 1.2em;
     animation: blink 1.5s infinite;
 }
-
 @keyframes blink { 50% { opacity: 0.5; } }
+@keyframes floating { 0% { transform: translateY(0px); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0px); } }
 
-/* SOUND TOGGLE FIX */
+/* SOUND TOGGLE */
 #sound-toggle {
-    position: fixed;
-    bottom: 20px;
-    left: 20px;
-    z-index: 999;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background: rgba(0,0,0,0.7);
-    border: 1px solid #e94560;
-    color: #fff;
-    font-size: 1.5em;
+    position: fixed; bottom: 20px; left: 20px; z-index: 999;
+    width: 50px; height: 50px; border-radius: 50%;
+    background: rgba(0,0,0,0.7); border: 1px solid #e94560;
+    color: #fff; font-size: 1.5em; display: flex; justify-content: center; align-items: center;
 }
-
-/* WELCOME SCREEN */
-#welcome-screen {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background: #1a0b2e; z-index: 10000;
-    display: flex; justify-content: center; align-items: center;
-}
-.welcome-content { padding: 20px; }
-.fade-out { opacity: 0; pointer-events: none; transition: opacity 0.8s; }
 
 /* CUSTOM ALERT */
 .modal-overlay {
@@ -218,4 +263,8 @@ button {
 .modal-content {
     background: #1a1a2e; padding: 30px; border-radius: 15px; border: 2px solid #e94560;
     width: 90%; max-width: 400px; text-align: center;
+}
+.modal-content button {
+    background: linear-gradient(45deg, #e94560, #7b2cbf);
+    color: white; border: none; padding: 10px 25px; border-radius: 25px; margin-top: 15px;
 }
