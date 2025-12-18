@@ -1,0 +1,439 @@
+/* =========================================
+   1. GLOBAL STYLES & FONTS
+   ========================================= */
+body {
+    background: radial-gradient(circle at center, #2b1055, #000000); /* Background deep mystical */
+    color: #fff;
+    font-family: 'Lato', sans-serif; /* Font body mudah dibaca */
+    text-align: center;
+    padding: 20px;
+    min-height: 100vh;
+    margin: 0;
+}
+
+h1, h2, h3 {
+    font-family: 'Cinzel', serif; /* Font judul magis */
+    color: #ffd700; /* Emas */
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+    margin-bottom: 10px;
+}
+
+p {
+    line-height: 1.6;
+}
+
+/* =========================================
+   2. INPUT AREA & BUTTONS
+   ========================================= */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.input-section {
+    margin: 30px auto;
+}
+
+#user-question {
+    width: 80%;
+    max-width: 600px;
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px solid #7b2cbf;
+    background: rgba(255, 255, 255, 0.1); /* Transparan */
+    color: white;
+    font-size: 1.1em;
+    backdrop-filter: blur(5px);
+    font-family: 'Lato', sans-serif;
+    resize: none; /* Mencegah user mengubah ukuran box */
+    outline: none;
+    transition: box-shadow 0.3s;
+}
+
+#user-question:focus {
+    box-shadow: 0 0 15px rgba(123, 44, 191, 0.5);
+    border-color: #9d4edd;
+}
+
+#draw-btn {
+    background: linear-gradient(45deg, #7b2cbf, #e94560);
+    border: none;
+    padding: 15px 40px;
+    font-family: 'Cinzel', serif;
+    font-weight: bold;
+    color: white;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 1.2em;
+    transition: transform 0.2s, box-shadow 0.2s;
+    margin-top: 20px;
+}
+
+/* --- STATUS TOMBOL DISABLE (SAAT LOADING) --- */
+#draw-btn:disabled {
+    background: #555; /* Warna abu-abu mati */
+    color: #999;
+    cursor: not-allowed; /* Kursor tanda larang */
+    transform: none !important; /* Matikan efek hover */
+    box-shadow: none !important;
+    filter: grayscale(100%);
+}
+
+#draw-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(233, 69, 96, 0.6);
+}
+
+/* --- Wrapper agar tombol ada di dalam area input --- */
+.input-wrapper {
+    position: relative;
+    width: 80%;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Pastikan textarea memenuhi wrapper */
+#user-question {
+    width: 100%;
+    box-sizing: border-box; /* Agar padding tidak merusak lebar */
+    padding-right: 50px; /* Beri ruang di kanan agar teks tidak tertutup tombol */
+}
+
+/* --- Styling Tombol Random (Dadu) --- */
+#random-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: transparent;
+    border: none;
+    font-size: 1.5em;
+    cursor: pointer;
+    transition: transform 0.5s ease, filter 0.3s;
+    opacity: 0.7;
+    z-index: 10;
+}
+
+#random-btn:hover {
+    transform: rotate(360deg) scale(1.2); /* Animasi berputar saat hover */
+    opacity: 1;
+    filter: drop-shadow(0 0 5px #ffd700); /* Efek glow */
+}
+
+#random-btn:active {
+    transform: scale(0.9);
+}
+
+/* =========================================
+   3. AI READING BOX (MARKDOWN STYLING)
+   ========================================= */
+.ai-reading-box h1, 
+.ai-reading-box h2, 
+.ai-reading-box h3 {
+    white-space: normal; 
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    line-height: 1.4; 
+    max-width: 100%;
+}
+   
+.ai-reading-box {
+    margin: 50px auto;
+    padding: 40px;
+    max-width: 800px;
+    
+    background: rgba(13, 13, 25, 0.7);
+    border: 1px solid rgba(255, 215, 0, 0.2); 
+    border-radius: 15px;
+    backdrop-filter: blur(15px);
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.6);
+    
+    text-align: left;
+    color: #eee;
+
+    box-sizing: border-box; 
+    overflow: hidden; 
+    width: 90%; 
+    max-width: 800px;
+}
+
+/* Styling Elemen Markdown */
+.ai-reading-box h3 {
+    border-bottom: 1px solid rgba(255, 215, 0, 0.3);
+    padding-bottom: 10px;
+    margin-top: 30px;
+    margin-bottom: 15px;
+    font-size: 1.4em;
+    color: #ffd700;
+}
+
+.ai-reading-box strong {
+    color: #e94560; /* Highlight warna merah muda */
+}
+
+.ai-reading-box em {
+    color: #fca311; /* Highlight warna oranye untuk italics */
+}
+
+.ai-reading-box ul {
+    padding-left: 20px;
+}
+
+.ai-reading-box li {
+    margin-bottom: 10px;
+    list-style-type: none;
+}
+
+.ai-reading-box li::before {
+    content: "✨ "; 
+    margin-right: 5px;
+}
+
+.ai-reading-box blockquote {
+    border-left: 4px solid #ffd700;
+    margin: 20px 0;
+    padding: 10px 20px;
+    background: rgba(255, 215, 0, 0.05);
+    font-style: italic;
+    color: #fff;
+    border-radius: 0 10px 10px 0;
+}
+
+/* =========================================
+   5. LOADING ANIMATION
+   ========================================= */
+#ai-loading {
+    font-family: 'Cinzel', serif;
+    font-size: 1.3em;
+    color: #ffd700;
+    margin-top: 30px;
+    letter-spacing: 2px;
+    animation: glow 1.5s infinite alternate;
+}
+
+@keyframes glow {
+    from { text-shadow: 0 0 5px #ffd700, 0 0 10px #e94560; }
+    to { text-shadow: 0 0 20px #ffd700, 0 0 30px #e94560; }
+}
+
+@keyframes floating {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+}
+
+/* =========================================
+   6. CUSTOM MODAL POPUP
+   ========================================= */
+.modal-overlay {
+    display: none; 
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85); 
+    z-index: 9999; 
+    backdrop-filter: blur(5px);
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.modal-overlay.active {
+    display: flex;
+    opacity: 1;
+}
+
+.modal-content {
+    background: rgba(20, 20, 40, 0.9);
+    border: 2px solid #e94560; 
+    border-radius: 15px;
+    padding: 30px;
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+    box-shadow: 0 0 30px rgba(233, 69, 96, 0.4);
+    transform: scale(0.8);
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+}
+
+.modal-overlay.active .modal-content {
+    transform: scale(1);
+}
+
+.modal-content h3 {
+    margin-top: 0;
+    color: #ffd700;
+    font-size: 1.5em;
+}
+
+.modal-content p {
+    color: #ddd;
+    font-size: 1.1em;
+    margin: 20px 0;
+}
+
+.modal-content button {
+    background: linear-gradient(45deg, #e94560, #7b2cbf);
+    color: white;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 25px;
+    font-family: 'Cinzel', serif;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.modal-content button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 15px rgba(233, 69, 96, 0.6);
+}
+
+/* =========================================
+   7.  SOUND CONTROL BUTTON 
+   ========================================= */
+
+#sound-toggle {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    background: rgba(20, 20, 40, 0.8);
+    border: 1px solid #e94560;
+    color: #ffd700;
+    font-size: 1.5em;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s ease;
+    display: flex;      
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(5px);
+}
+
+#sound-toggle:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 15px rgba(233, 69, 96, 0.6);
+    background: #e94560;
+    color: white;
+}
+
+/* =========================================
+   8.  WELCOME SCREEN OVERLAY
+   ========================================= */
+
+#welcome-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, #1a0b2e, #000000);
+    z-index: 10000; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 1s ease-out; 
+}
+
+.welcome-content {
+    text-align: center;
+    color: white;
+    animation: floating 3s ease-in-out infinite;
+}
+
+.welcome-content h1 {
+    font-size: 3em;
+    margin-bottom: 10px;
+    text-shadow: 0 0 20px #e94560;
+}
+
+.welcome-content p {
+    font-size: 1.2em;
+    color: #ccc;
+    margin-bottom: 30px;
+    font-family: 'Cinzel', serif;
+}
+
+#enter-btn {
+    background: transparent;
+    border: 2px solid #ffd700;
+    color: #ffd700;
+    padding: 15px 40px;
+    font-size: 1.2em;
+    font-family: 'Cinzel', serif;
+    cursor: pointer;
+    transition: all 0.3s;
+    letter-spacing: 2px;
+}
+
+#enter-btn:hover {
+    background: #ffd700;
+    color: #000;
+    box-shadow: 0 0 30px #ffd700;
+}
+
+
+.fade-out {
+    opacity: 0;
+    pointer-events: none; 
+}
+
+/* =========================================
+   9.  Styling Tombol Reset
+   ========================================= */
+#reset-btn {
+    background: linear-gradient(45deg, #4cc9f0, #4361ee);
+    border: 2px solid #4cc9f0;
+    padding: 15px 40px;
+    font-family: 'Cinzel', serif;
+    font-weight: bold;
+    color: white;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 1.2em;
+    box-shadow: 0 0 20px rgba(67, 97, 238, 0.5);
+    transition: transform 0.3s;
+}
+
+#reset-btn:hover {
+    transform: scale(1.1) rotate(-5deg);
+    box-shadow: 0 0 30px rgba(76, 201, 240, 0.8);
+    background: white;
+    color: #4361ee;
+}
+
+
+#reset-container {
+    display: none; 
+    justify-content: center;
+    flex-wrap: wrap; 
+    gap: 20px; 
+}
+
+/* =========================================
+   9.  Styling Tombol Save
+   ========================================= */
+#save-btn {
+    background: linear-gradient(45deg, #ffd700, #fca311);
+    border: 2px solid #ffd700;
+    padding: 15px 40px;
+    font-family: 'Cinzel', serif;
+    font-weight: bold;
+    color: #1a0b2e; 
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 1.2em;
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
+    transition: transform 0.3s;
+}
+
+#save-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 40px rgba(255, 215, 0, 0.8);
+    background: white;
+}

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Tarot Reader</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/cards.css">
+</head>
+<body>
+
+    <div id="welcome-screen">
+        <div class="welcome-content">
+            <h1>🔮 Tarot AI Reader</h1>
+            <p>Siapkan batinmu sebelum mengetahui takdir.</p>
+            <button id="enter-btn">Masuki Ruang Ramalan</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <h1>🔮 Tarot Reader</h1>
+        <p>Fokus pada pertanyaanmu, lalu tekan tombol di bawah.</p>
+        
+        <div class="input-section">
+            <div class="input-wrapper">
+                <textarea id="user-question" placeholder="Apa yang ingin kamu tanyakan pada kartu? (Wajib diisi)" rows="3"></textarea>
+                <button id="random-btn" title="Acak Pertanyaan">🎲</button>
+            </div>
+        </div>
+
+        <button id="draw-btn">Tarik Kartu (Past, Present, Future)</button>
+
+        <div id="reading-area" class="spread-container"></div>
+
+        <div id="ai-loading" style="display: none;">🔮 Sedang menafsirkan kartu...</div>
+        <div id="ai-response" class="ai-reading-box"></div>
+
+        <div id="reset-container" style="display: none;">
+            <button id="save-btn">📸 Simpan Ramalan</button>
+            <button id="reset-btn">🔄 Mulai Sesi Baru</button>
+        </div>
+    </div>
+
+    <div id="custom-alert" class="modal-overlay">
+        <div class="modal-content">
+            <h3>🔮 Peringatan Semesta</h3>
+            <p id="alert-msg">Pesan akan muncul di sini...</p>
+            <button>Saya Mengerti</button> </div>
+    </div>
+
+    <audio id="bgm-audio" loop>
+        <source src="sounds/bgm.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="flip-audio">
+        <source src="sounds/flip.mp3" type="audio/mpeg">
+    </audio>
+    <button id="sound-toggle" title="Matikan/Hidupkan Suara">🔇</button>
+
+    <script type="module" src="js/main.js"></script>
+
+</body>
+</html>
